@@ -4,4 +4,5 @@
     android:id="@+id/playbackView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:evp_hideControlsOnPlay="false" />
+    app:evp_hideControlsOnPlay="false"
+    app:evp_hideTimeProgress="true"/>

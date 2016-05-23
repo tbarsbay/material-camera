@@ -11,7 +11,7 @@
         layout="@layout/mcam_include_camera_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/container_prompt" />
+        android:layout_above="@+id/controlsFrame" />
 
     <LinearLayout
         android:id="@+id/container_prompt"
@@ -66,17 +66,6 @@
             android:tint="#000"
             tools:src="@drawable/mcam_camera_front"
             tools:ignore="ContentDescription" />
-
-        <!--<ImageButton-->
-            <!--android:id="@+id/video"-->
-            <!--android:layout_width="@dimen/mcam_action_icon_size"-->
-            <!--android:layout_height="@dimen/mcam_action_icon_size"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:background="@drawable/mcam_circle_selector"-->
-            <!--android:padding="@dimen/mcam_content_inset_less"-->
-            <!--android:scaleType="fitXY"-->
-            <!--tools:src="@drawable/mcam_action_capture"-->
-            <!--tools:ignore="ContentDescription" />-->
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/video"

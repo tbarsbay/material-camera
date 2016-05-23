@@ -27,6 +27,7 @@
         <attr name="evp_pauseDrawable" format="reference" />
 
         <attr name="evp_hideControlsOnPlay" format="boolean" />
+        <attr name="evp_hideTimeProgress" format="boolean" />
         <attr name="evp_autoPlay" format="boolean" />
 
         <attr name="evp_disableControls" format="boolean" />

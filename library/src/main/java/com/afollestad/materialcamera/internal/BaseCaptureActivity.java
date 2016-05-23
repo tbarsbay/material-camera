@@ -98,7 +98,6 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
             final int primaryColor = getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0);
             final Window window = getWindow();
             window.setStatusBarColor(CameraUtil.darkenColor(primaryColor));
-            window.setNavigationBarColor(primaryColor);
         }
 
         if (null == savedInstanceState) {

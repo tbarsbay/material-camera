@@ -51,9 +51,13 @@ interface IUserMethods {
 
     void setInitialPosition(@IntRange(from = 0, to = Integer.MAX_VALUE) int pos);
 
+    void setHideTimeProgress(boolean hide);
+
     void showControls();
 
     void hideControls();
+
+    void hideTimeProgress();
 
     @CheckResult
     boolean isControlsShown();

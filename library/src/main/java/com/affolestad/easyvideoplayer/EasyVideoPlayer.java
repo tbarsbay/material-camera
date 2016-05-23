@@ -118,6 +118,7 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     private Drawable mPlayDrawable;
     private Drawable mPauseDrawable;
     private boolean mHideControlsOnPlay = true;
+    private boolean mHideTimeProgress = false;
     private boolean mAutoPlay;
     private int mInitialPosition = -1;
     private boolean mControlsDisabled;
@@ -172,11 +173,12 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                 mPauseDrawable = a.getDrawable(R.styleable.EasyVideoPlayer_evp_pauseDrawable);
 
                 mHideControlsOnPlay = a.getBoolean(R.styleable.EasyVideoPlayer_evp_hideControlsOnPlay, true);
+                mHideTimeProgress = a.getBoolean(R.styleable.EasyVideoPlayer_evp_hideTimeProgress, false);
                 mAutoPlay = a.getBoolean(R.styleable.EasyVideoPlayer_evp_autoPlay, false);
                 mControlsDisabled = a.getBoolean(R.styleable.EasyVideoPlayer_evp_disableControls, false);
 
                 mThemeColor = a.getColor(R.styleable.EasyVideoPlayer_evp_themeColor,
-                        getResources().getColor(R.color.mcam_white));
+                        Util.resolveColor(context, R.attr.colorPrimary));
             } finally {
                 a.recycle();
             }
@@ -184,9 +186,10 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
             mLeftAction = LEFT_ACTION_RETRY;
             mRightAction = RIGHT_ACTION_NONE;
             mHideControlsOnPlay = true;
+            mHideTimeProgress = false;
             mAutoPlay = false;
             mControlsDisabled = false;
-            mThemeColor = getResources().getColor(R.color.mcam_white);
+            mThemeColor = Util.resolveColor(context, R.attr.colorPrimary);
         }
 
         if (mRetryText == null)
@@ -295,6 +298,11 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
     }
 
     @Override
+    public void setHideTimeProgress(boolean hide) {
+        mHideTimeProgress = hide;
+    }
+
+    @Override
     public void setAutoPlay(boolean autoPlay) {
         mAutoPlay = autoPlay;
     }
@@ -363,6 +371,13 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
                             mControlsFrame.setVisibility(View.GONE);
                     }
                 }).start();
+    }
+
+    @Override
+    public void hideTimeProgress() {
+        if (mLabelPosition == null || mLabelDuration == null) return;
+        mLabelPosition.setVisibility(View.INVISIBLE);
+        mLabelDuration.setVisibility(View.INVISIBLE);
     }
 
     @CheckResult
@@ -681,12 +696,16 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         // Retrieve controls
         mSeeker = (DiscreteSeekBar) mControlsFrame.findViewById(R.id.seeker);
         mSeeker.setOnProgressChangeListener(this);
+        mSeeker.setScrubberColor(mThemeColor);
 
         mLabelPosition = (TextView) mControlsFrame.findViewById(R.id.position);
         mLabelPosition.setText(Util.getDurationString(0, false));
 
         mLabelDuration = (TextView) mControlsFrame.findViewById(R.id.duration);
         mLabelDuration.setText(Util.getDurationString(0, true));
+
+        if (mHideTimeProgress)
+            hideTimeProgress();
 
         mBtnRetry = (TextView) mControlsFrame.findViewById(R.id.btnRetry);
         mBtnRetry.setOnClickListener(this);
