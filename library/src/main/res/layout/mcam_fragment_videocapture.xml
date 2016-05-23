@@ -23,7 +23,7 @@
         android:background="#FFF"
         android:gravity="center"
         android:textSize="18sp"
-        android:layout_above="@id/controlsFrame"
+        android:layout_above="@+id/controlsFrame"
         tools:text="Introduce yourself in 10 seconds" />
 
     <FrameLayout
