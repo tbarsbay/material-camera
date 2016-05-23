@@ -38,6 +38,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     protected ImageButton mButtonFacing;
     protected TextView mRecordDuration;
     protected TextView mTextPrompt;
+    protected TextView mRecordInstructions;
 
     private boolean mIsRecording;
     protected String mOutputUri;
@@ -88,6 +89,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             mButtonFacing.setVisibility(View.GONE);
         mRecordDuration = (TextView) view.findViewById(R.id.recordDuration);
         mTextPrompt = (TextView) view.findViewById(R.id.prompt);
+        mRecordInstructions = (TextView) view.findViewById(R.id.record_instructions);
         mButtonFacing.setImageResource(mInterface.getCurrentCameraPosition() == CAMERA_POSITION_BACK ?
                 mInterface.iconFrontCamera() : mInterface.iconRearCamera());
         if (mMediaRecorder != null && mIsRecording) {
@@ -105,9 +107,6 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
         mButtonVideo.setOnClickListener(this);
         mButtonFacing.setOnClickListener(this);
-
-        final int primaryColor = getArguments().getInt(CameraIntentKey.PRIMARY_COLOR);
-        view.findViewById(R.id.controlsFrame).setBackgroundColor(CameraUtil.darkenColor(primaryColor));
 
         if (savedInstanceState != null)
             mOutputUri = savedInstanceState.getString("output_uri");
@@ -264,6 +263,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 stopRecordingVideo(false);
                 mIsRecording = false;
             } else {
+                mRecordInstructions.setVisibility(View.INVISIBLE);
                 if (getArguments().getBoolean(CameraIntentKey.SHOW_PORTRAIT_WARNING, true) &&
                         Degrees.isPortrait(getActivity())) {
                     new MaterialDialog.Builder(getActivity())

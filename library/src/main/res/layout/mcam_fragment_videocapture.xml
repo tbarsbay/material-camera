@@ -11,32 +11,48 @@
         layout="@layout/mcam_include_camera_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/prompt" />
+        android:layout_above="@+id/container_prompt" />
 
-    <TextView
-        android:id="@+id/prompt"
+    <LinearLayout
+        android:id="@+id/container_prompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:background="#FFF"
-        android:gravity="center"
-        android:textSize="18sp"
         android:layout_above="@+id/controlsFrame"
-        tools:text="Introduce yourself in 10 seconds" />
+        android:background="#FFF">
+
+        <TextView
+            android:id="@+id/prompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textSize="18sp"
+            tools:text="Introduce yourself in 10 seconds" />
+
+        <TextView
+            android:id="@+id/record_instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="Tap the record button below to get started!" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/controlsFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#fFFF"
-        android:elevation="@dimen/mcam_toolbar_elevation"
+        android:background="#fff"
         android:paddingBottom="@dimen/mcam_content_inset_less"
         android:paddingLeft="@dimen/mcam_content_inset"
         android:paddingRight="@dimen/mcam_content_inset"
-        android:paddingTop="@dimen/mcam_content_inset_less"
+        android:clipToPadding="false"
         tools:ignore="UnusedAttribute">
 
         <ImageButton
@@ -47,6 +63,7 @@
             android:background="@drawable/mcam_circle_selector"
             android:padding="@dimen/mcam_content_inset_less"
             android:scaleType="fitXY"
+            android:tint="#000"
             tools:src="@drawable/mcam_camera_front"
             tools:ignore="ContentDescription" />
 
@@ -76,7 +93,7 @@
             android:layout_gravity="center_vertical|end"
             android:fontFamily="sans-serif-medium"
             android:text="@string/mcam_defaultDuration"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="@dimen/mcam_regular_content_fontsize" />
 
     </FrameLayout>

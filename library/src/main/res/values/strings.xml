@@ -14,4 +14,7 @@
     <string name="mcam_no_audio_access">You haven\'t given access to your microphone; no audio will be recorded.</string>
     <string name="mcam_file_size_limit_reached">You\'ve reached the maximum file size!</string>
 
+    <string name="evp_submit">SUBMIT</string>
+    <string name="evp_retry">RETRY</string>
+
 </resources>

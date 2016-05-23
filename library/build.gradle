@@ -5,7 +5,6 @@ ext {
     PUBLISH_ARTIFACT_ID = 'material-camera'
     PUBLISH_VERSION = '0.2.12'
     SUPPORT_LIB_VERSION = '23.4.0'
-    VIDEO_PLAYER_VERSION = '0.2.6'
     MD_VERSION = '0.8.5.9'
 }
 
@@ -39,8 +38,8 @@ repositories {
 dependencies {
     compile "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
     compile "com.android.support:design:${SUPPORT_LIB_VERSION}"
-    compile "com.afollestad:easyvideoplayer:${VIDEO_PLAYER_VERSION}"
     compile "com.afollestad.material-dialogs:core:${MD_VERSION}"
+    compile 'org.adw.library:discrete-seekbar:1.0.1'
 }
 
 apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-release-aar.gradle'

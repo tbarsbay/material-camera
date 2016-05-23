@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .showPortraitWarning(true)
                 .allowRetry(true)
                 .defaultToFrontFacing(true)
+                .labelTextPrompt("Introduce yourself in 10 seconds")
                 .start(CAMERA_RQ);
     }
 

@@ -479,7 +479,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     }
 
     @Override
-    public int labelPrompt() {
-        return getIntent().getIntExtra(CameraIntentKey.LABEL_TEXT_PROMPT, R.string.mcam_text_prompt);
+    public String labelPrompt() {
+        return getIntent().getExtras().getString(CameraIntentKey.LABEL_TEXT_PROMPT, getString(R.string.mcam_text_prompt));
     }
 }

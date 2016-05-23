@@ -11,10 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.easyvideoplayer.EasyVideoCallback;
-import com.afollestad.easyvideoplayer.EasyVideoPlayer;
+import com.affolestad.easyvideoplayer.EasyVideoCallback;
+import com.affolestad.easyvideoplayer.EasyVideoPlayer;
 import com.afollestad.materialcamera.R;
-import com.afollestad.materialcamera.util.CameraUtil;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 /**
@@ -36,7 +35,6 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
                     useVideo();
                     return;
                 }
-                mPlayer.setBottomLabelText(String.format("-%s", CameraUtil.getDurationString(diff)));
                 if (mCountdownHandler != null)
                     mCountdownHandler.postDelayed(mCountdownRunnable, 200);
             }
@@ -90,10 +88,10 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
 
         mPlayer = (EasyVideoPlayer) view.findViewById(R.id.playbackView);
         mPlayer.setCallback(this);
-        mPlayer.setThemeColor(getArguments().getInt(CameraIntentKey.PRIMARY_COLOR));
 
         mPlayer.setSubmitTextRes(mInterface.labelUseVideo());
         mPlayer.setRetryTextRes(mInterface.labelRetry());
+        mPlayer.setPromptText(mInterface.labelPrompt());
         mPlayer.setPlayDrawableRes(mInterface.iconPlay());
         mPlayer.setPauseDrawableRes(mInterface.iconPause());
 
@@ -104,8 +102,6 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
         mOutputUri = getArguments().getString("output_uri");
 
         if (mInterface.hasLengthLimit() && mInterface.shouldAutoSubmit() && mInterface.continueTimerInPlayback()) {
-            final long diff = mInterface.getRecordingEnd() - System.currentTimeMillis();
-            mPlayer.setBottomLabelText(String.format("-%s", CameraUtil.getDurationString(diff)));
             startCountdownTimer();
         }
 

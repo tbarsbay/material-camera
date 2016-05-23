@@ -77,7 +77,7 @@ public class MaterialCamera {
 
     private int mLabelRetry;
     private int mLabelUseVideo;
-    private int mLabelTextPrompt;
+    private String mLabelTextPrompt; // Not a res ID because we're pulling text from backend, not string resources
 
     public MaterialCamera(@NonNull Activity context) {
         mContext = context;
@@ -255,8 +255,8 @@ public class MaterialCamera {
         return this;
     }
 
-    public MaterialCamera labelTextPrompt(@StringRes int stringRes) {
-        mLabelTextPrompt = stringRes;
+    public MaterialCamera labelTextPrompt(String string) {
+        mLabelTextPrompt = string;
         return this;
     }
 
@@ -309,7 +309,7 @@ public class MaterialCamera {
             intent.putExtra(CameraIntentKey.LABEL_RETRY, mLabelRetry);
         if (mLabelUseVideo != 0)
             intent.putExtra(CameraIntentKey.LABEL_USE_VIDEO, mLabelUseVideo);
-        if (mLabelTextPrompt != 0)
+        if (mLabelTextPrompt != null)
             intent.putExtra(CameraIntentKey.LABEL_TEXT_PROMPT, mLabelTextPrompt);
 
         return intent;

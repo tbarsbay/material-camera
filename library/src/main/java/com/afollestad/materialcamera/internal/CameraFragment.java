@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
@@ -353,6 +354,8 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             try {
                 // UI
                 mButtonVideo.setImageResource(mInterface.iconStop());
+                mButtonVideo.setBackgroundTintList(ColorStateList.valueOf(
+                        getResources().getColor(mInterface.colorStop())));
                 if (!CameraUtil.isArcWelder())
                     mButtonFacing.setVisibility(View.GONE);
 
@@ -418,6 +421,8 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             mOutputUri = null;
 
         mButtonVideo.setImageResource(mInterface.iconRecord());
+        mButtonVideo.setBackgroundTintList(ColorStateList.valueOf(
+                getResources().getColor(mInterface.colorRecord())));
         if (!CameraUtil.isArcWelder())
             mButtonFacing.setVisibility(View.VISIBLE);
         if (mInterface.getRecordingStart() > -1 && getActivity() != null)

@@ -106,6 +106,5 @@ public interface BaseCaptureInterface {
     @StringRes
     int labelUseVideo();
 
-    @StringRes
-    int labelPrompt();
+    String labelPrompt();
 }

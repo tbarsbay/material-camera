@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
@@ -502,6 +503,8 @@ public class Camera2Fragment extends BaseCameraFragment implements View.OnClickL
         try {
             // UI
             mButtonVideo.setImageResource(mInterface.iconStop());
+            mButtonVideo.setBackgroundTintList(ColorStateList.valueOf(
+                    getResources().getColor(mInterface.colorStop())));
             if (!CameraUtil.isArcWelder())
                 mButtonFacing.setVisibility(View.GONE);
 
@@ -549,6 +552,8 @@ public class Camera2Fragment extends BaseCameraFragment implements View.OnClickL
 
         releaseRecorder();
         mButtonVideo.setImageResource(mInterface.iconRecord());
+        mButtonVideo.setBackgroundTintList(ColorStateList.valueOf(
+                getResources().getColor(mInterface.colorRecord())));
         if (!CameraUtil.isArcWelder())
             mButtonFacing.setVisibility(View.VISIBLE);
         if (mInterface.getRecordingStart() > -1 && getActivity() != null)
