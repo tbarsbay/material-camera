@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +34,10 @@ import static com.afollestad.materialcamera.internal.BaseCaptureActivity.CAMERA_
  */
 abstract class BaseCameraFragment extends Fragment implements CameraUriInterface, View.OnClickListener {
 
-    protected ImageButton mButtonVideo;
+    protected FloatingActionButton mButtonVideo;
     protected ImageButton mButtonFacing;
     protected TextView mRecordDuration;
+    protected TextView mTextPrompt;
 
     private boolean mIsRecording;
     protected String mOutputUri;
@@ -79,19 +82,26 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mButtonVideo = (ImageButton) view.findViewById(R.id.video);
+        mButtonVideo = (FloatingActionButton) view.findViewById(R.id.video);
         mButtonFacing = (ImageButton) view.findViewById(R.id.facing);
         if (CameraUtil.isArcWelder())
             mButtonFacing.setVisibility(View.GONE);
         mRecordDuration = (TextView) view.findViewById(R.id.recordDuration);
+        mTextPrompt = (TextView) view.findViewById(R.id.prompt);
         mButtonFacing.setImageResource(mInterface.getCurrentCameraPosition() == CAMERA_POSITION_BACK ?
                 mInterface.iconFrontCamera() : mInterface.iconRearCamera());
         if (mMediaRecorder != null && mIsRecording) {
             mButtonVideo.setImageResource(mInterface.iconStop());
+            mButtonVideo.setBackgroundTintList(ColorStateList.valueOf(
+                    getResources().getColor(mInterface.colorStop())));
         } else {
             mButtonVideo.setImageResource(mInterface.iconRecord());
+            mButtonVideo.setBackgroundTintList(ColorStateList.valueOf(
+                    getResources().getColor(mInterface.colorRecord())));
             mInterface.setDidRecord(false);
         }
+
+        mTextPrompt.setText(mInterface.labelPrompt());
 
         mButtonVideo.setOnClickListener(this);
         mButtonFacing.setOnClickListener(this);

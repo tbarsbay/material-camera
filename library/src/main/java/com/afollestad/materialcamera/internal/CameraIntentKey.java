@@ -35,6 +35,10 @@ public class CameraIntentKey {
     public static final String ICON_PAUSE = "icon_pause";
     public static final String ICON_RESTART = "icon_restart";
 
+    public static final String COLOR_RECORD = "color_record";
+    public static final String COLOR_STOP = "color_stop";
+
     public static final String LABEL_RETRY = "label_retry";
     public static final String LABEL_USE_VIDEO = "label_use_video";
+    public static final String LABEL_TEXT_PROMPT = "label_text_prompt";
 }

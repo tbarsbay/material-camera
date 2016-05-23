@@ -10,6 +10,7 @@ import android.media.CamcorderProfile;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -453,6 +454,18 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         return getIntent().getIntExtra(CameraIntentKey.ICON_RECORD, R.drawable.mcam_action_capture);
     }
 
+    @ColorRes
+    @Override
+    public int colorRecord() {
+        return getIntent().getIntExtra(CameraIntentKey.COLOR_RECORD, R.color.mcam_record);
+    }
+
+    @ColorRes
+    @Override
+    public int colorStop() {
+        return getIntent().getIntExtra(CameraIntentKey.COLOR_STOP, R.color.mcam_stop);
+    }
+
     @StringRes
     @Override
     public int labelRetry() {
@@ -463,5 +476,10 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     @Override
     public int labelUseVideo() {
         return getIntent().getIntExtra(CameraIntentKey.LABEL_USE_VIDEO, R.string.mcam_use_video);
+    }
+
+    @Override
+    public int labelPrompt() {
+        return getIntent().getIntExtra(CameraIntentKey.LABEL_TEXT_PROMPT, R.string.mcam_text_prompt);
     }
 }

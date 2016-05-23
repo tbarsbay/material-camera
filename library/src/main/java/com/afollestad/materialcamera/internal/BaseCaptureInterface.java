@@ -1,5 +1,6 @@
 package com.afollestad.materialcamera.internal;
 
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -72,6 +73,12 @@ public interface BaseCaptureInterface {
 
     int qualityProfile();
 
+    @ColorRes
+    int colorRecord();
+
+    @ColorRes
+    int colorStop();
+
     @DrawableRes
     int iconRecord();
 
@@ -98,4 +105,7 @@ public interface BaseCaptureInterface {
 
     @StringRes
     int labelUseVideo();
+
+    @StringRes
+    int labelPrompt();
 }

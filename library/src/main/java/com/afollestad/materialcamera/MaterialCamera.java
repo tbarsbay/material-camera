@@ -77,6 +77,7 @@ public class MaterialCamera {
 
     private int mLabelRetry;
     private int mLabelUseVideo;
+    private int mLabelTextPrompt;
 
     public MaterialCamera(@NonNull Activity context) {
         mContext = context;
@@ -254,6 +255,11 @@ public class MaterialCamera {
         return this;
     }
 
+    public MaterialCamera labelTextPrompt(@StringRes int stringRes) {
+        mLabelTextPrompt = stringRes;
+        return this;
+    }
+
     public Intent getIntent() {
         final Class<?> cls = !mForceCamera1 && CameraUtil.hasCamera2(mContext) ?
                 CaptureActivity2.class : CaptureActivity.class;
@@ -303,6 +309,8 @@ public class MaterialCamera {
             intent.putExtra(CameraIntentKey.LABEL_RETRY, mLabelRetry);
         if (mLabelUseVideo != 0)
             intent.putExtra(CameraIntentKey.LABEL_USE_VIDEO, mLabelUseVideo);
+        if (mLabelTextPrompt != 0)
+            intent.putExtra(CameraIntentKey.LABEL_TEXT_PROMPT, mLabelTextPrompt);
 
         return intent;
     }
