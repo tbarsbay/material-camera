@@ -19,7 +19,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -265,7 +264,6 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     private void initialize() {
         if (mVideoUrl != null) {
-            Log.d("Tamer", "initialize: videourl not null"); //TODO temp log
             // There is a video to play, go straight to playback fragment
             Fragment frag = PlaybackVideoFragment.newInstance(null, mVideoUrl, allowRetry(),
                     getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
@@ -273,7 +271,6 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                     .replace(R.id.container, frag)
                     .commit();
         } else {
-            Log.d("Tamer", "initialize, videourl null"); //TODO temp log
             showInitialRecorder();
         }
     }
