@@ -50,6 +50,7 @@ public class MaterialCamera {
     private boolean mAllowRetry = true;
     private boolean mAutoSubmit = false;
     private String mSaveDir;
+    private String mVideoUrl; // If it already exists
     private int mPrimaryColor;
     private boolean mShowPortraitWarning = true;
     private boolean mDefaultToFrontFacing = false;
@@ -119,6 +120,11 @@ public class MaterialCamera {
 
     public MaterialCamera saveDir(@Nullable String dir) {
         mSaveDir = dir;
+        return this;
+    }
+
+    public MaterialCamera videoUrl(@Nullable String videoUrl) {
+        mVideoUrl = videoUrl;
         return this;
     }
 
@@ -268,6 +274,7 @@ public class MaterialCamera {
                 .putExtra(CameraIntentKey.ALLOW_RETRY, mAllowRetry)
                 .putExtra(CameraIntentKey.AUTO_SUBMIT, mAutoSubmit)
                 .putExtra(CameraIntentKey.SAVE_DIR, mSaveDir)
+                .putExtra(CameraIntentKey.VIDEO_URL, mVideoUrl)
                 .putExtra(CameraIntentKey.PRIMARY_COLOR, mPrimaryColor)
                 .putExtra(CameraIntentKey.SHOW_PORTRAIT_WARNING, mShowPortraitWarning)
                 .putExtra(CameraIntentKey.DEFAULT_TO_FRONT_FACING, mDefaultToFrontFacing)

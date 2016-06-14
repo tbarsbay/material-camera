@@ -19,6 +19,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -45,6 +46,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     private Object mFrontCameraId;
     private Object mBackCameraId;
     private boolean mDidRecord = false;
+    private String mVideoUrl;
 
     public static final int PERMISSION_RC = 69;
 
@@ -65,6 +67,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         outState.putLong("recording_start", mRecordingStart);
         outState.putLong("recording_end", mRecordingEnd);
         outState.putLong(CameraIntentKey.LENGTH_LIMIT, mLengthLimit);
+        outState.putString("video_url", mVideoUrl);
         if (mFrontCameraId instanceof String) {
             outState.putString("front_camera_id_str", (String) mFrontCameraId);
             outState.putString("back_camera_id_str", (String) mBackCameraId);
@@ -101,6 +104,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         }
 
         if (null == savedInstanceState) {
+            mVideoUrl = getIntent().getStringExtra(CameraIntentKey.VIDEO_URL);
             checkPermissions();
             mLengthLimit = getIntent().getLongExtra(CameraIntentKey.LENGTH_LIMIT, -1);
         } else {
@@ -109,6 +113,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
             mRecordingStart = savedInstanceState.getLong("recording_start", -1);
             mRecordingEnd = savedInstanceState.getLong("recording_end", -1);
             mLengthLimit = savedInstanceState.getLong(CameraIntentKey.LENGTH_LIMIT, -1);
+            mVideoUrl = savedInstanceState.getString(CameraIntentKey.VIDEO_URL, null);
             if (savedInstanceState.containsKey("front_camera_id_str")) {
                 mFrontCameraId = savedInstanceState.getString("front_camera_id_str");
                 mBackCameraId = savedInstanceState.getString("back_camera_id_str");
@@ -124,12 +129,12 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     private void checkPermissions() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            showInitialRecorder();
+            initialize();
             return;
         }
         final boolean videoGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         if (videoGranted) {
-            showInitialRecorder();
+            initialize();
         } else {
             final boolean audioGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
             String[] perms;
@@ -258,6 +263,21 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         return mBackCameraId;
     }
 
+    private void initialize() {
+        if (mVideoUrl != null) {
+            Log.d("Tamer", "initialize: videourl not null"); //TODO temp log
+            // There is a video to play, go straight to playback fragment
+            Fragment frag = PlaybackVideoFragment.newInstance(null, mVideoUrl, allowRetry(),
+                    getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, frag)
+                    .commit();
+        } else {
+            Log.d("Tamer", "initialize, videourl null"); //TODO temp log
+            showInitialRecorder();
+        }
+    }
+
     private void showInitialRecorder() {
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, createFragment())
@@ -296,7 +316,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                 // No countdown or countdown should not continue through playback, reset timer to 0
                 setRecordingStart(-1);
             }
-            Fragment frag = PlaybackVideoFragment.newInstance(outputUri, allowRetry(),
+            Fragment frag = PlaybackVideoFragment.newInstance(outputUri, null, allowRetry(),
                     getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, frag)
@@ -323,7 +343,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     @Override
     protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PERMISSION_RC) showInitialRecorder();
+        if (requestCode == PERMISSION_RC) initialize();
     }
 
     @Override
@@ -342,7 +362,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                         }
                     }).show();
         } else {
-            showInitialRecorder();
+            initialize();
         }
     }
 

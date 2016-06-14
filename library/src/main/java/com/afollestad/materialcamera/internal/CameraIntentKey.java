@@ -12,6 +12,7 @@ public class CameraIntentKey {
     public static final String ALLOW_RETRY = "allow_retry";
     public static final String AUTO_SUBMIT = "auto_submit";
     public static final String SAVE_DIR = "save_dir";
+    public static final String VIDEO_URL = "video_url";
     public static final String PRIMARY_COLOR = "primary_color";
     public static final String SHOW_PORTRAIT_WARNING = "show_portrait_warning";
     public static final String DEFAULT_TO_FRONT_FACING = "default_to_front_facing";

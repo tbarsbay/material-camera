@@ -23,6 +23,7 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
 
     private EasyVideoPlayer mPlayer;
     private String mOutputUri;
+    private String mVideoUrl;
     private BaseCaptureInterface mInterface;
 
     private Handler mCountdownHandler;
@@ -48,13 +49,15 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
         mInterface = (BaseCaptureInterface) activity;
     }
 
-    public static PlaybackVideoFragment newInstance(String outputUri, boolean allowRetry, int primaryColor) {
+    public static PlaybackVideoFragment newInstance(String outputUri, String videoUrl,
+                                                    boolean allowRetry, int primaryColor) {
         PlaybackVideoFragment fragment = new PlaybackVideoFragment();
         fragment.setRetainInstance(true);
         Bundle args = new Bundle();
         args.putString("output_uri", outputUri);
         args.putBoolean(CameraIntentKey.ALLOW_RETRY, allowRetry);
         args.putInt(CameraIntentKey.PRIMARY_COLOR, primaryColor);
+        args.putString(CameraIntentKey.VIDEO_URL, videoUrl);
         fragment.setArguments(args);
         return fragment;
     }
@@ -100,12 +103,18 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
         mPlayer.setRightAction(EasyVideoPlayer.RIGHT_ACTION_SUBMIT);
 
         mOutputUri = getArguments().getString("output_uri");
+        mVideoUrl = getArguments().getString(CameraIntentKey.VIDEO_URL, null);
 
         if (mInterface.hasLengthLimit() && mInterface.shouldAutoSubmit() && mInterface.continueTimerInPlayback()) {
             startCountdownTimer();
         }
 
-        mPlayer.setSource(Uri.parse(mOutputUri));
+        if (mVideoUrl != null) {
+            // There's a video url to play instead of a file uri
+            mPlayer.setSource(Uri.parse(mVideoUrl));
+        } else {
+            mPlayer.setSource(Uri.parse(mOutputUri));
+        }
     }
 
     private void startCountdownTimer() {
