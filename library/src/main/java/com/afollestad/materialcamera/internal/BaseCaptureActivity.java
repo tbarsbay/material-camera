@@ -156,8 +156,14 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         Fragment frag = getFragmentManager().findFragmentById(R.id.container);
         if (frag != null) {
             if (frag instanceof PlaybackVideoFragment && allowRetry()) {
-                onRetry(((CameraUriInterface) frag).getOutputUri());
-                return;
+                if (mVideoUrl == null) {
+                    // If the user entered the flow with a pre-existing video, pressing back should
+                    // finish the Activity and take them back to the previous screen. Otherwise,
+                    // if they didn't come in with a video and only just recorded one, pressing back
+                    // should let them redo the video.
+                    onRetry(((CameraUriInterface) frag).getOutputUri());
+                    return;
+                }
             } else if (frag instanceof BaseCameraFragment) {
                 ((BaseCameraFragment) frag).cleanup();
             }
