@@ -41,5 +41,3 @@ dependencies {
     compile "com.afollestad.material-dialogs:core:${MD_VERSION}"
     compile 'org.adw.library:discrete-seekbar:1.0.1'
 }
-
-apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-release-aar.gradle'
