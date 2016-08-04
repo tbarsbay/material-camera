@@ -103,7 +103,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             mInterface.setDidRecord(false);
         }
 
-        mTextPrompt.setText(mInterface.labelPrompt());
+        if (mTextPrompt != null)
+            mTextPrompt.setText(mInterface.labelPrompt());
 
         mButtonVideo.setOnClickListener(this);
         mButtonFacing.setOnClickListener(this);
@@ -263,7 +264,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 stopRecordingVideo(false);
                 mIsRecording = false;
             } else {
-                mRecordInstructions.setVisibility(View.INVISIBLE);
+                if (mRecordInstructions != null)
+                    mRecordInstructions.setVisibility(View.INVISIBLE);
                 if (getArguments().getBoolean(CameraIntentKey.SHOW_PORTRAIT_WARNING, true) &&
                         Degrees.isPortrait(getActivity())) {
                     new MaterialDialog.Builder(getActivity())
