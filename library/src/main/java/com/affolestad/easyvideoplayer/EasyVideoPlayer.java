@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.CheckResult;
 import android.support.annotation.DrawableRes;
@@ -658,7 +659,9 @@ public class EasyVideoPlayer extends FrameLayout implements IUserMethods, Textur
         final LayoutParams textureLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mTextureView = new TextureView(getContext());
-        mTextureView.setBackgroundColor(Color.BLACK);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            mTextureView.setBackgroundColor(Color.BLACK);
+        }
         addView(mTextureView, textureLp);
         mTextureView.setSurfaceTextureListener(this);
 

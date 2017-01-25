@@ -50,11 +50,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         new MaterialCamera(this)
-                .saveDir(saveDir)
-                .showPortraitWarning(true)
                 .allowRetry(true)
-                .defaultToFrontFacing(true)
+                .autoSubmit(false)
+                .countdownSeconds(30)
+                .saveDir(saveDir)
                 .showPortraitWarning(false)
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .defaultToFrontFacing(true)
+                .restartTimerOnRetry(true)
+                .qualityProfile(MaterialCamera.QUALITY_HIGH)
+                .videoPreferredAspect(4f / 3f)
                 .labelTextPrompt("Introduce yourself in 10 seconds")
                 .start(CAMERA_RQ);
     }

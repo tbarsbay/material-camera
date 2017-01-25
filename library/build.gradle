@@ -4,18 +4,18 @@ ext {
     PUBLISH_GROUP_ID = 'com.afollestad'
     PUBLISH_ARTIFACT_ID = 'material-camera'
     PUBLISH_VERSION = '0.2.12'
-    SUPPORT_LIB_VERSION = '23.4.0'
+    SUPPORT_LIB_VERSION = '25.1.0'
     MD_VERSION = '0.8.5.9'
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 16
+        targetSdkVersion 25
+        versionCode 17
         versionName "${PUBLISH_VERSION}"
     }
     lintOptions {
